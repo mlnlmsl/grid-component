@@ -1,3 +1,5 @@
 function paginationController($scope) {
-  console.log(this);
+  var self = this;
+  this.perPage = 5;
+  this.currentPage = 1;
 }

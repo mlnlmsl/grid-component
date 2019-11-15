@@ -1,4 +1,4 @@
-angular.module("todoApp", []).component("paginationComponent", {
+angular.module("tableApp", []).component("paginationComponent", {
   templateUrl: "./app/component/pagination/pagination.html",
   controller: paginationController,
   bindings: {

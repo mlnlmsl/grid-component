@@ -1,4 +1,4 @@
-angular.module("todoApp").service("tableService", function($q, $http) {
+angular.module("tableApp").service("tableService", function($q, $http) {
   /**
    * get all the locations
    *

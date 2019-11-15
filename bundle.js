@@ -2,7 +2,7 @@
   angular.module("todoApp", ["ngComponentRouter"]);
 })(window.angular);
 const API_ENDPOINT = "http://localhost:3000/";
-angular.module("todoApp", []).component("paginationComponent", {
+angular.module("tableApp", []).component("paginationComponent", {
   templateUrl: "./app/component/pagination/pagination.html",
   controller: paginationController,
   bindings: {
@@ -10,9 +10,11 @@ angular.module("todoApp", []).component("paginationComponent", {
   }
 });
 function paginationController($scope) {
-  console.log(this);
+  var self = this;
+  this.perPage = 5;
+  this.currentPage = 1;
 }
-angular.module("todoApp").component("tableComponent", {
+angular.module("tableApp").component("tableComponent", {
   templateUrl: "./app/component/table/table.html",
   controller: tableController
 });
@@ -72,7 +74,7 @@ function tableController(tableService) {
       .then(function(response) {});
   };
 }
-angular.module("todoApp").service("tableService", function($q, $http) {
+angular.module("tableApp").service("tableService", function($q, $http) {
   /**
    * get all the locations
    *
