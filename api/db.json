@@ -1,0 +1,49 @@
+{
+  "locations": [
+    {
+      "id": 1,
+      "code": 12121,
+      "name": "name1",
+      "plant": "us",
+      "companyCode": "1231",
+      "createAt": "01/10/2018",
+      "isActive": false
+    },
+    {
+      "id": 3,
+      "code": 12121,
+      "name": "name2",
+      "plant": "us",
+      "companyCode": "1231",
+      "createAt": "01/10/2018",
+      "isActive": false
+    },
+    {
+      "id": 4,
+      "code": 12121,
+      "name": "name3",
+      "plant": "us",
+      "companyCode": "1231",
+      "createAt": "01/10/2018",
+      "isActive": true
+    },
+    {
+      "id": 5,
+      "code": 12121,
+      "name": "name4",
+      "plant": "us",
+      "companyCode": "1231",
+      "createAt": "01/10/2018",
+      "isActive": true
+    },
+    {
+      "id": 6,
+      "code": 12121,
+      "name": "name5",
+      "plant": "us",
+      "companyCode": "1231",
+      "createAt": "01/10/2018",
+      "isActive": true
+    }
+  ]
+}

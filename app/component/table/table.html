@@ -1,0 +1,50 @@
+<div class="container">
+  <br>
+  <!-- input component -->
+  <div class="columns">
+    <div class="column is-two-fifths">
+      <input type="text" ng-model="$ctrl.searchKey" class="input is-small" placeholder="search anything"
+        ng-keyup="$ctrl.search()" required>
+    </div>
+  </div>
+
+  <!-- table  -->
+  <div ng-if="$ctrl.loading">
+    <h1>Loading please wait.....</h1>
+  </div>
+  <div ng-if="!$ctrl.loading">
+    <table class="table is-hoverable is-fullwidth table-head-background-color">
+      <thead class="has-background-light-grey">
+        <tr>
+          <th></th>
+          <th>Code</th>
+          <th>Name</th>
+          <th>Plant</th>
+          <th>Company Code</th>
+          <th>Created Data</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="(index,data) in $ctrl.data">
+          <td><input type="checkbox" ng-model="isChecked" ng-change="$ctrl.rowSelectionChange(data.id,isChecked)"></td>
+          <td> {{data.code}}</td>
+          <td>{{data.name}}</td>
+          <td>{{data.plant}}</td>
+          <td>{{data.companyCode}}</td>
+          <td>{{data.createAt}}</td>
+          <td>{{data.isActive?'Active':'Inactive'}}</td>
+          <td><i class="far fa-trash-alt text-info"></i></td>
+        </tr>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-component total="{{$ctrl.totalData}}"></pagination-component>
+    <div>
+      <button class="button is-info is-small" ng-click="$ctrl.alterStatus(true)">Activate</button>
+      <button class="button is-warning is-small" ng-click="$ctrl.alterStatus(false)">Deactivate</button>
+      <button class="button is-success is-small">Add Location</button>
+    </div>
+  </div>
+</div>
