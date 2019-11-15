@@ -23,8 +23,10 @@ angular.module("tableApp").service("tableService", function($q, $http) {
    * return promise
    *
    */
-  this.search = function(key = "") {
-    return $http.get(API_ENDPOINT + `locations?q=${key}`);
+  this.search = function(key = "", pageNo, limit) {
+    return $http.get(
+      API_ENDPOINT + `locations?q=${key}&_page=${pageNo + 1}&_limit=${limit}`
+    );
   };
 
   /**

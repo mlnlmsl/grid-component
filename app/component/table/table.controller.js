@@ -20,11 +20,13 @@ function tableController(tableService) {
 
   self.search = function() {
     self.loading = true;
-    tableService.search(self.searchKey).then(function(response) {
-      self.data = response.data;
-      self.totalData = self.data.length;
-      self.loading = false;
-    });
+    tableService
+      .search(self.searchKey, self.currentPage, self.perPage)
+      .then(function(response) {
+        self.data = response.data;
+        self.totalData = self.data.length;
+        self.loading = false;
+      });
   };
 
   self.makePaginationArray = function() {

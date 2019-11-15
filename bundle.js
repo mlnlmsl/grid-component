@@ -40,11 +40,13 @@ function tableController(tableService) {
 
   self.search = function() {
     self.loading = true;
-    tableService.search(self.searchKey).then(function(response) {
-      self.data = response.data;
-      self.totalData = self.data.length;
-      self.loading = false;
-    });
+    tableService
+      .search(self.searchKey, self.currentPage, self.perPage)
+      .then(function(response) {
+        self.data = response.data;
+        self.totalData = self.data.length;
+        self.loading = false;
+      });
   };
 
   self.makePaginationArray = function() {
@@ -142,8 +144,10 @@ angular.module("tableApp").service("tableService", function($q, $http) {
    * return promise
    *
    */
-  this.search = function(key = "") {
-    return $http.get(API_ENDPOINT + `locations?q=${key}`);
+  this.search = function(key = "", pageNo, limit) {
+    return $http.get(
+      API_ENDPOINT + `locations?q=${key}&_page=${pageNo + 1}&_limit=${limit}`
+    );
   };
 
   /**
