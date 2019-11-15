@@ -1,7 +1,7 @@
 (function(angular) {
   angular.module("todoApp", ["ngComponentRouter"]);
 })(window.angular);
-const API_ENDPOINT = "http://localhost:3000/";
+const API_ENDPOINT = "https://rest-api-grid.herokuapp.com/";
 angular.module("tableApp", []).component("paginationComponent", {
   templateUrl: "./app/component/pagination/pagination.html",
   controller: paginationController,
@@ -26,13 +26,11 @@ function tableController(tableService) {
   self.loading = true;
   self.selectedRows = [];
   self.isChecked = false;
+  self.pagination = [];
+  self.currentPage = 0;
 
   self.$onInit = function() {
-    tableService.getData().then(function(response) {
-      self.data = response.data;
-      self.totalData = self.data.length;
-      self.loading = false;
-    });
+    self.fetchAll();
   };
 
   self.search = function() {
@@ -41,9 +39,31 @@ function tableController(tableService) {
       self.data = response.data;
       self.totalData = self.data.length;
       self.loading = false;
+      self.makePaginationArray();
     });
   };
 
+  self.makePaginationArray = function() {
+    let i;
+    self.pagination = [];
+    for (i = 0; i < self.totalData; ++i) {
+      self.pagination.push(i);
+    }
+  };
+
+  self.fetchAll = function() {
+    self.loading = true;
+    tableService.getData().then(function(response) {
+      self.data = response.data;
+      self.totalData = self.data.length;
+      self.loading = false;
+      self.makePaginationArray();
+    });
+  };
+
+  self.changePage = function(page) {
+    self.currentPage = page;
+  };
   /**
    * @param {number} id id of checked row
    *
@@ -71,7 +91,9 @@ function tableController(tableService) {
   self.alterStatus = function(status) {
     tableService
       .patchStatus(self.selectedRows, status)
-      .then(function(response) {});
+      .then(function(response) {
+        self.fetchAll();
+      });
   };
 }
 angular.module("tableApp").service("tableService", function($q, $http) {

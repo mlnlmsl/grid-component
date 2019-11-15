@@ -40,7 +40,20 @@
         </tr>
       </tbody>
     </table>
-    <pagination-component total="{{$ctrl.totalData}}"></pagination-component>
+    <div class="columns">
+      <div class="column">
+        1-5 of 55
+      </div>
+      <div class="column">
+        <nav class="pagination is-rounded is-small is-pulled-right" role="navigation" aria-label="pagination">
+          <ul class="pagination-list">
+            <li ng-repeat="n in $ctrl.pagination" ng-click="$ctrl.changePage(n)">
+              <a class="pagination-link {{($ctrl.currentPage==n)?'is-current':''}}" aria-label="1">{{n+1}}</a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
     <div>
       <button class="button is-info is-small" ng-click="$ctrl.alterStatus(true)">Activate</button>
       <button class="button is-warning is-small" ng-click="$ctrl.alterStatus(false)">Deactivate</button>

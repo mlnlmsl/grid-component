@@ -6,13 +6,11 @@ function tableController(tableService) {
   self.loading = true;
   self.selectedRows = [];
   self.isChecked = false;
+  self.pagination = [];
+  self.currentPage = 0;
 
   self.$onInit = function() {
-    tableService.getData().then(function(response) {
-      self.data = response.data;
-      self.totalData = self.data.length;
-      self.loading = false;
-    });
+    self.fetchAll();
   };
 
   self.search = function() {
@@ -21,9 +19,31 @@ function tableController(tableService) {
       self.data = response.data;
       self.totalData = self.data.length;
       self.loading = false;
+      self.makePaginationArray();
     });
   };
 
+  self.makePaginationArray = function() {
+    let i;
+    self.pagination = [];
+    for (i = 0; i < self.totalData; ++i) {
+      self.pagination.push(i);
+    }
+  };
+
+  self.fetchAll = function() {
+    self.loading = true;
+    tableService.getData().then(function(response) {
+      self.data = response.data;
+      self.totalData = self.data.length;
+      self.loading = false;
+      self.makePaginationArray();
+    });
+  };
+
+  self.changePage = function(page) {
+    self.currentPage = page;
+  };
   /**
    * @param {number} id id of checked row
    *
@@ -51,6 +71,8 @@ function tableController(tableService) {
   self.alterStatus = function(status) {
     tableService
       .patchStatus(self.selectedRows, status)
-      .then(function(response) {});
+      .then(function(response) {
+        self.fetchAll();
+      });
   };
 }
