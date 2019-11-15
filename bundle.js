@@ -38,8 +38,10 @@ function tableController(tableService) {
     self.count();
   };
 
+  // search automatic when user make input
   self.search = function() {
     self.loading = true;
+    self.currentPage = 0;
     tableService
       .search(self.searchKey, self.currentPage, self.perPage)
       .then(function(response) {
@@ -49,6 +51,7 @@ function tableController(tableService) {
       });
   };
 
+  //create pagination array
   self.makePaginationArray = function() {
     let i;
     self.pagination = [];
@@ -57,6 +60,7 @@ function tableController(tableService) {
     }
   };
 
+  //fetch data with pagination
   self.fetchAll = function() {
     self.loading = true;
     tableService
@@ -69,6 +73,7 @@ function tableController(tableService) {
       });
   };
 
+  //count total data without pagination
   self.count = function() {
     tableService.getAllCount().then(function(response) {
       self.count = response.data.length;

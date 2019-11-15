@@ -1,5 +1,6 @@
 <div class="container">
   <br>
+  <h4 class="title is-4">Locations</h4>
   <!-- input component -->
   <div class="columns">
     <div class="column is-two-fifths">
@@ -34,12 +35,19 @@
           <td>{{data.plant}}</td>
           <td>{{data.companyCode}}</td>
           <td>{{data.createAt}}</td>
-          <td>{{data.isActive?'Active':'Inactive'}}</td>
+          <td>
+            <span class="tag {{data.isActive?'is-success':'is-danger'}}">
+              {{data.isActive?'Active':'Inactive'}}
+            </span>
+          </td>
           <td><i class="far fa-trash-alt text-info"></i></td>
         </tr>
         </tr>
       </tbody>
     </table>
+    <!-- end of table  -->
+
+    <!-- pagination component -->
     <div class="columns">
       <div class="column">
         1-5 of {{$ctrl.count}}
@@ -54,6 +62,8 @@
         </nav>
       </div>
     </div>
+    <!-- end of pagination  -->
+
     <div>
       <button class="button is-info is-small {{$ctrl.activateLoading?'is-loading':''}}"
         ng-click="$ctrl.alterStatus(true)">Activate</button>
