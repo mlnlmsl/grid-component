@@ -5,14 +5,14 @@
   <div class="column">
     <nav class="pagination is-rounded is-small is-pulled-right" role="navigation" aria-label="pagination">
       <ul class="pagination-list">
-        <li ng-repeat="n in [] | range: $ctrl.total">{{$index}}}</li>
-        <!-- <li><a class="pagination-link is-current" aria-label="1">First</a></li>
+        <!-- <li ng-repeat="n in [] | range: $ctrl.total">{{$index}}}</li> -->
+        <li><a class="pagination-link is-current" aria-label="1">First</a></li>
         <li><a class="pagination-link" aria-label="1">2</a></li>
         <li><a class="pagination-link" aria-label="Goto page 2">3</a></li>
         <li><a class="pagination-link" aria-label="Page 3" aria-current="page">3</a></li>
         <li><span class="pagination-ellipsis">&hellip;</span></li>
         <li><a class="pagination-link" aria-label="Goto page 4">{{$ctrl.total-1}}</a></li>
-        <li><a class="pagination-link" aria-label="1">Last</a></li> -->
+        <li><a class="pagination-link" aria-label="1">Last</a></li>
       </ul>
     </nav>
   </div>
