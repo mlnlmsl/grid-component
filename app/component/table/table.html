@@ -12,8 +12,8 @@
   <div ng-if="$ctrl.loading">
     <h1>Loading please wait.....</h1>
   </div>
-  <div ng-if="!$ctrl.loading">
-    <table class="table is-hoverable is-fullwidth table-head-background-color">
+  <div>
+    <table ng-if="!$ctrl.loading" class="table is-hoverable is-fullwidth table-head-background-color">
       <thead class="has-background-light-grey">
         <tr>
           <th></th>
@@ -55,8 +55,10 @@
       </div>
     </div>
     <div>
-      <button class="button is-info is-small" ng-click="$ctrl.alterStatus(true)">Activate</button>
-      <button class="button is-warning is-small" ng-click="$ctrl.alterStatus(false)">Deactivate</button>
+      <button class="button is-info is-small {{$ctrl.activateLoading?'is-loading':''}}"
+        ng-click="$ctrl.alterStatus(true)">Activate</button>
+      <button class="button is-warning is-small {{$ctrl.deactivateLoading?'is-loading':''}}"
+        ng-click="$ctrl.alterStatus(false)">Deactivate</button>
       <button class="button is-success is-small">Add Location</button>
     </div>
   </div>

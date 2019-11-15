@@ -1,11 +1,20 @@
 angular.module("tableApp").service("tableService", function($q, $http) {
   /**
+   * get all without pagination
+   */
+  this.getAllCount = function() {
+    return $http.get(API_ENDPOINT + `locations`);
+  };
+
+  /**
    * get all the locations
    *
    * return promise
    */
-  this.getData = function() {
-    return $http.get(API_ENDPOINT + "locations");
+  this.getData = function(pageNo, limit) {
+    return $http.get(
+      API_ENDPOINT + `locations?_page=${pageNo + 1}&_limit=${limit}`
+    );
   };
 
   /**

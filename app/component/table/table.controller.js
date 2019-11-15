@@ -4,13 +4,18 @@ function tableController(tableService) {
   self.data = []; // tableService.getData();
   self.totalData = 0; //self.data.length;
   self.loading = true;
+  self.count = 0;
   self.selectedRows = [];
   self.isChecked = false;
   self.pagination = [];
   self.currentPage = 0;
+  self.perPage = 5;
+  self.activateLoading = false;
+  self.deactivateLoading = false;
 
   self.$onInit = function() {
     self.fetchAll();
+    self.count();
   };
 
   self.search = function() {
@@ -19,31 +24,42 @@ function tableController(tableService) {
       self.data = response.data;
       self.totalData = self.data.length;
       self.loading = false;
-      self.makePaginationArray();
     });
   };
 
   self.makePaginationArray = function() {
     let i;
     self.pagination = [];
-    for (i = 0; i < self.totalData; ++i) {
+    for (i = 0; i < Math.ceil(self.count / self.perPage); ++i) {
       self.pagination.push(i);
     }
   };
 
   self.fetchAll = function() {
     self.loading = true;
-    tableService.getData().then(function(response) {
-      self.data = response.data;
-      self.totalData = self.data.length;
-      self.loading = false;
+    tableService
+      .getData(self.currentPage, self.perPage)
+      .then(function(response) {
+        self.data = response.data;
+        self.totalData = self.data.length;
+        self.loading = false;
+        self.makePaginationArray();
+      });
+  };
+
+  self.count = function() {
+    tableService.getAllCount().then(function(response) {
+      self.count = response.data.length;
       self.makePaginationArray();
     });
   };
 
+  //operation need when page is clicked
   self.changePage = function(page) {
     self.currentPage = page;
+    self.fetchAll();
   };
+
   /**
    * @param {number} id id of checked row
    *
@@ -69,9 +85,14 @@ function tableController(tableService) {
    * return none
    */
   self.alterStatus = function(status) {
+    status ? (self.activateLoading = true) : (self.deactivateLoading = true);
     tableService
       .patchStatus(self.selectedRows, status)
       .then(function(response) {
+        status
+          ? (self.activateLoading = false)
+          : (self.deactivateLoading = false);
+        self.selectedRows = [];
         self.fetchAll();
       });
   };
