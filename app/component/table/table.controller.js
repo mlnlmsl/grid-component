@@ -15,7 +15,7 @@ function tableController(tableService) {
 
   self.$onInit = function() {
     self.fetchAll();
-    self.count();
+    self.countTotal();
   };
 
   // search automatic when user make input
@@ -54,7 +54,7 @@ function tableController(tableService) {
   };
 
   //count total data without pagination
-  self.count = function() {
+  self.countTotal = function() {
     tableService.getAllCount().then(function(response) {
       self.count = response.data.length;
       self.makePaginationArray();
@@ -102,5 +102,18 @@ function tableController(tableService) {
         self.selectedRows = [];
         self.fetchAll();
       });
+  };
+
+  /**
+   * delete the particular data
+   *
+   * @param {number} id of row to be deleted
+   *
+   */
+  self.delete = function(id) {
+    tableService.deleteLocation(id).then(function(response) {
+      self.countTotal();
+      self.fetchAll();
+    });
   };
 }

@@ -1,3 +1,3 @@
 (function(angular) {
-  angular.module("todoApp", ["ngComponentRouter"]);
+  angular.module("todoApp", ["ngRoute"]);
 })(window.angular);

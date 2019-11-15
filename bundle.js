@@ -1,5 +1,5 @@
 (function(angular) {
-  angular.module("todoApp", ["ngComponentRouter"]);
+  angular.module("todoApp", ["ngRoute"]);
 })(window.angular);
 const API_ENDPOINT = "https://rest-api-grid.herokuapp.com/";
 angular.module("tableApp", []).component("paginationComponent", {
@@ -35,7 +35,7 @@ function tableController(tableService) {
 
   self.$onInit = function() {
     self.fetchAll();
-    self.count();
+    self.countTotal();
   };
 
   // search automatic when user make input
@@ -74,7 +74,7 @@ function tableController(tableService) {
   };
 
   //count total data without pagination
-  self.count = function() {
+  self.countTotal = function() {
     tableService.getAllCount().then(function(response) {
       self.count = response.data.length;
       self.makePaginationArray();
@@ -123,6 +123,19 @@ function tableController(tableService) {
         self.fetchAll();
       });
   };
+
+  /**
+   * delete the particular data
+   *
+   * @param {number} id of row to be deleted
+   *
+   */
+  self.delete = function(id) {
+    tableService.deleteLocation(id).then(function(response) {
+      self.countTotal();
+      self.fetchAll();
+    });
+  };
 }
 angular.module("tableApp").service("tableService", function($q, $http) {
   /**
@@ -168,5 +181,9 @@ angular.module("tableApp").service("tableService", function($q, $http) {
         $http.patch(API_ENDPOINT + `locations/${id}`, { isActive: status })
       )
     );
+  };
+
+  this.deleteLocation = function(id) {
+    return $http.delete(API_ENDPOINT + `locations/${id}`);
   };
 });

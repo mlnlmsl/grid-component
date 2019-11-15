@@ -40,7 +40,7 @@
               {{data.isActive?'Active':'Inactive'}}
             </span>
           </td>
-          <td><i class="far fa-trash-alt text-info"></i></td>
+          <td ng-click="$ctrl.delete(data.id)"><i class="far fa-trash-alt text-info" style="cursor: pointer;"></i></td>
         </tr>
         </tr>
       </tbody>
@@ -50,7 +50,7 @@
     <!-- pagination component -->
     <div class="columns">
       <div class="column">
-        1-5 of {{$ctrl.count}}
+        {{$ctrl.perPage*$ctrl.currentPage+1}}-{{$ctrl.perPage*$ctrl.currentPage+$ctrl.totalData}} of {{$ctrl.count}}
       </div>
       <div class="column">
         <nav class="pagination is-rounded is-small is-pulled-right" role="navigation" aria-label="pagination">
@@ -69,7 +69,7 @@
         ng-click="$ctrl.alterStatus(true)">Activate</button>
       <button class="button is-warning is-small {{$ctrl.deactivateLoading?'is-loading':''}}"
         ng-click="$ctrl.alterStatus(false)">Deactivate</button>
-      <button class="button is-success is-small">Add Location</button>
+      <!-- <button class="button is-success is-small">Add Location</button> -->
     </div>
   </div>
 </div>

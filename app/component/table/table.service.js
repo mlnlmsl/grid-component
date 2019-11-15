@@ -43,4 +43,8 @@ angular.module("tableApp").service("tableService", function($q, $http) {
       )
     );
   };
+
+  this.deleteLocation = function(id) {
+    return $http.delete(API_ENDPOINT + `locations/${id}`);
+  };
 });
